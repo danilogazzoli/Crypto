@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{42EDD466-1164-46D0-B7E1-10BDFA112CFF}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Aula01\Exercicio1\Exercicio1.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Aula02\Exercicio01\Exercicio01.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Aula02\Exercicio02\Exercicio02.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Exercicio1">
+        <MSBuild Projects="Aula01\Exercicio1\Exercicio1.dproj"/>
+    </Target>
+    <Target Name="Exercicio1:Clean">
+        <MSBuild Projects="Aula01\Exercicio1\Exercicio1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Exercicio1:Make">
+        <MSBuild Projects="Aula01\Exercicio1\Exercicio1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Exercicio01">
+        <MSBuild Projects="Aula02\Exercicio01\Exercicio01.dproj"/>
+    </Target>
+    <Target Name="Exercicio01:Clean">
+        <MSBuild Projects="Aula02\Exercicio01\Exercicio01.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Exercicio01:Make">
+        <MSBuild Projects="Aula02\Exercicio01\Exercicio01.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Exercicio02">
+        <MSBuild Projects="Aula02\Exercicio02\Exercicio02.dproj"/>
+    </Target>
+    <Target Name="Exercicio02:Clean">
+        <MSBuild Projects="Aula02\Exercicio02\Exercicio02.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Exercicio02:Make">
+        <MSBuild Projects="Aula02\Exercicio02\Exercicio02.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Exercicio1;Exercicio01;Exercicio02"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Exercicio1:Clean;Exercicio01:Clean;Exercicio02:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Exercicio1:Make;Exercicio01:Make;Exercicio02:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

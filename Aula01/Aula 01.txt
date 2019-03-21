@@ -1,0 +1,85 @@
+http://moodle.dainf.ct.utfpr.edu.br/course/view.php?id=287
+
+rodrigo.minetto@gmail.com
+
+Introduçao a criptografia
+
+
+RSA
+
+
+Algoritmos
+
+tecnologias
+
+prova
+
+tarefas individuais (40%)
+
+escrita e apresentacao de um tema em criptografia ( 30%)
+
+prova no final da disciplina (30%)
+
+recuperação para quem nao atingir a media
+
+
+um exemplo de criptografia (bitcoin) aplicações de criptografia (tudo menos o primeiro slide)
+
+imagem, criptografia quantica, bitcoin
+
+esteganografia
+
+
+
+cifra de transposicao = caracteres nao sao trocados, apenas reposicionados
+
+cifra de substituicao = troca de letras
+
+atbash - cifra baseada no alfabeto hebraico
+
+códigos
+
+desvantagem: necessidade de um livro de código 
+            Transporte e segurança
+
+máquina enigma
+
+
+Cifrar e decifrar
+
+codificar e decodificar
+
+nomenclator
+
+
+museu cairo louvre londres nova iorque e berlin - museus egípcios
+
+hieróglifos 
+
+site rosetta coding
+
+
+manuscrito de voynich
+
+
+subtituicao monoalfabética - cifra de césar
+substituir letras de uma língua para outra - substituir uma letra por outra que estivesse tres casas a frente do alfabeto
+
+cifra do chiqueiro 
+
+c ou python
+
+todo algoritmo é baseado em uma chave
+
+criptoanálise
+
+substituição por frequencia das letras (% de ocorrencia da letra na lingua)
+
+
+
+
+
+
+
+
+
