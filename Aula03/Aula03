@@ -1,0 +1,105 @@
+Cifras de Fluxo - Stream Ciphers
+
+Gilbert Vernam - maquina de telegrafo
+
+#include <stdio.h>
+
+int main () {
+
+  int a, b, xor;
+  a = 0, b = 0;
+  xor = a ^ b;
+  printf ("%d XOR %d = %d\n", a, b, xor); 
+
+}
+
+a b xor 
+0 0 0
+0 1 1
+1 0 1
+1 1 0
+
+XOR é inversível
+
+Números verdadeiramente aleatórios
+
+TRNG = 100 bits
+TRUE - processos físicos: lançamento de dados, ruido de semicondutores, decaimento radioativo
+Placa gera por fenomeno físico 
+
+PRNG = pseudo números aleatórios
+baseado em uma semente física
+usados em qualquer lingugagem de programção (Random)
+
+CSPRNG - é um PRNG imprevisível
+
+
+Cifra de fluxo síncrona
+
+Cifra de fluxo assíncrona
+
+
+Cifra perfeita - chave de 10000 bits - cifra computacionalmente segura
+=>> One time Pad
+
+#include <stdio.h>
+
+int main () {
+  int tam = 7, i;
+  char *texto = "rodrigo";
+  char *chave = "minetto";
+  char cifrado[tam];
+  char decifrado[tam];
+  for (i=0; i < tam; mi++) {
+    cifrado[i] = texto[i] ^ chave[i];
+  } 
+
+  for (i=0; i < tam; i++) {
+    decifrado[i] = cifrado[i] ^ chave[i];
+  } 
+
+}
+
+gcc -o teste.c
+
+
+Crib Dragging
+
+
+Cifras de fluxo sao maleáveis
+
+
+Ataque man in the middle
+
+
+aleatorio.c
+aleatorio.py
+
+
+decifrar o cifra_xor_a.txt
+cifra_xor_b.txt
+
+----------------------------
+
+FILE *fin = fopen(argv[1], "r");
+
+while (!feof(fin)) {
+  char c;
+  fscanf(fin , "%c", &c);
+  if (c==' ') {
+    printf("%c", c);
+  }
+  else if (c == '\n') {
+ 
+   printf("%c", c)
+  }
+  else
+   {
+    int c = (c - 'a');
+    ??? (aleatorio() % alphabet_size);
+    ???
+   }
+  fclose(fin);
+   return 0;
+
+}
