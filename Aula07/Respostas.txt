@@ -1,0 +1,100 @@
+Aluno: Danilo Gazzoli
+
+Exercício 01: Será entregue a folha
+
+----------------------------------------------------
+Exercício 03: 
+
+
+#include <stdio.h>
+#include <sys/time.h>
+typedef long long int ulong;
+
+double time_diff(struct timeval x , struct timeval y);
+
+int main(){
+
+	struct timeval {
+		    time_t tv_sec;     /* seconds */
+		        suseconds_t tv_usec;    /* microseconds */
+	};
+
+	struct timeval before , after;
+	ulong q,x,n;
+	ulong result;
+	q = 5;
+	x = 6;
+	n = 23;
+
+	gettimeofday(before , NULL);
+	result = Naive(q, x, n);
+	gettimeofday(after , NULL);
+
+	printf("tempo foi %.0lf, e o resultado é %llf\n", time_diff(before , after), result);
+
+	gettimeofday(before , NULL);
+	result = Improved(q, x, n);
+	gettimeofday(after , NULL);
+
+	printf("tempo foi %.0lf, e o resultado é %llf\n", time_diff(before , after), result);
+
+	gettimeofday(before , NULL);
+	result = SquareMult(q, x, n);
+	gettimeofday(after , NULL);
+
+	printf("tempo foi %.0lf, e o resultado é %llf\n", time_diff(before , after), result);
+
+	return 0;
+}
+
+ulong Naive (ulong q, ulong x, ulong n) {
+	int i;
+	ulong r = 1;
+	for (i = 0; i < x; i++) {
+		r = (r * q);
+	}
+	return r % n;
+}
+
+ulong Improved (ulong q, ulong x, ulong n) {
+	int i;
+	ulong r = 1;
+	for (i = 0; i < x; i++) {
+		r = (r * q) % n;
+	}
+	return r;
+}
+
+ulong SquareMult (ulong q, ulong x, ulong n){
+	ulong r = 1;
+	while (x > 0) {
+		if ((x % 2) == 1) {
+			r = (r * q) % n; /Multiply (MUL)/
+		}
+		x /= 2;
+		q = (q * q) % n; /Square (SQ)/
+	}
+	return r;
+}
+
+----------------------------------------------------
+Exercício 04:
+
+
+agrande = 0
+inc = 1
+q = 260 
+p = 12889
+while (agrande!=6598):
+    inc+=1
+    q2 = q^inc
+    agrande = q2%p
+    #print(agrande)
+
+print("o numero e ", inc)
+
+a) a= 253 b = 108
+b) a = 1960 b = 7978
+c) a = 4436 b = 6338
+
+

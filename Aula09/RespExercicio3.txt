@@ -1,0 +1,75 @@
+1. Alice cria seu par de chaves (uma pública e outra privada) e envia sua chave pública para todos, inclusive Bob;
+
+2. Bob escreve sua mensagem para Alice. Após escrita, Bob faz a cifragem do texto final com a chave pública de Alice, gerando um texto criptografado;
+
+3. Alice recebe o texto criptografado de Bob e faz a decifragem utilizando a sua chave privada.
+
+O procedimento é realizado com sucesso porque somente a chave privada de Alice é capaz de decifrar um texto criptografado com a sua chave pública.
+
+------------------------------------------------
+
+Funcionamento:
+
+Conforme mencionado, o algoritmo RSA é baseado na construção de chaves públicas e privadas utilizando números primos. Inicialmente devem ser escolhidos dois números primos quaisquer P e Q. Quanto maior o número escolhido mais seguro será o algoritmo.
+
+A título de exemplificação, serão escolhidos números primos pequenos, para permitir um acompanhamento de todo o processo de cifragem e decifragem.
+
+P = 17
+Q = 11
+A seguir são calculados dois novos números N e Z de acordo com os números P e Q escolhidos:
+N = P * Q
+Z = (P - 1) * (Q - 1)
+No caso obtêm-se como resultado:
+
+N = 17 * 11 = 187
+Z = 16 * 10 = 160
+Agora define-se um número D que tenha a propriedade de ser primo em relação à Z. No caso, opta-se pela escolha:
+
+D = 7
+De posse desses números começa o processo de criação das chaves públicas e privadas. É necessário encontrar um número E que satisfaça a seguinte propriedade:
+
+(E * D) mod Z = 1
+Se forem feitos os testes com 1, 2, 3... teremos:
+
+E = 1 => (1 * 7) mod 160 = 7
+E = 2 => (2 * 7) mod 160 = 14
+E = 3 => (3 * 7) mod 160 = 21
+...
+E = 23 => (23 * 7) mod 160 = 1
+...
+E = 183 => (183 * 7) mod 160 = 1
+...
+E = 343 => (343 * 7) mod 160 = 1
+...
+E = 503 => (503 * 7) mod 160 = 1
+...
+Logo até o momento os números 23, 183, 343, 503 satisfazem a propriedade indicada.
+Para efeito de simplificação de cálculos, será tomado como referência:
+E = 23.
+Com esse processo definem-se as chaves de encriptação e desencriptação.
+
+para encriptar: utilizar E e N - esse par de números será utilizado como chave pública.
+para desencriptar: utilizar D e N - esse par de números utilizado como chave privada.
+As equações são:
+
+TEXTO CRIPTOGRAFADO = (TEXTO ORIGINAL ^ E) mod N
+TEXTO ORIGINAL = (TEXTO CRIPTOGRAFADO ^ D) mod N
+
+------------------------------------------------
+
+Caso prático para o exemplo
+
+Seja a necessidade de se encaminhar uma mensagem bem curta de forma criptografada, como o número 4 por exemplo, tendo por base as chaves aqui estabelecidas.
+
+Para criptografar:
+
+TEXTO ORIGINAL = 4
+TEXTO CRIPTOGRAFADO = (4 ^ 23) mod 39
+TEXTO CRIPTOGRAFADO = 70.368.744.177.664 mod 39
+TEXTO CRIPTOGRAFADO = 64
+Para desencriptar:
+
+TEXTO RECEBIDO = 64
+TEXTO ORIGINAL = (64 ^ 7) mod 39 
+TEXTO ORIGINAL = 4.398.046.511.104 mod 39
+TEXTO ORIGINAL = 4

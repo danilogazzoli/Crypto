@@ -1,106 +1,131 @@
 program Exercicio02;
 
 {$APPTYPE CONSOLE}
-
 {$R *.res}
 
 uses
-  System.SysUtils, Classes;
+  System.SysUtils,
+  Classes;
 
+type
+  TMatriz = array [0..25, 0..25] of char;
+  TLetrasBasicas = Array[0..25] of char;
 
-(*
-
-vigenere = function(phrase, keyword, state){
-	let cypher = '';
-	// keyword must contains only upper case letters A-Z
-	keyword = keyword.onlyLetters().toUpperCase();
-	let j = 0; // counts character to use in keyword
-	for (i=0; i<phrase.length; i++){
-		val = phrase.charOrdinalCodeAt(i);
-		if (val<0) enci = phrase[i]; // when character is not a letter simply return it
-		else {
-			enci = (((val % 26) + state*keyword.charOrdinalCodeAt(j)) + 26) % 26;
-			enci = String.fromCharCode(enci+65);
-			if (val>25) enci = enci.toLowerCase();
-			j = (j + 1) % keyword.length;
-
-		}
-		cypher+=enci;
-	}
-	return cypher;
-}
-*)
 var
-  _str : TStringList;
-(*
-function Vigenere(Frase, Chave: string; Estado: integer): string;
+  Matriz : TMatriz;
+  _Str: TStringList;
+
+
+function GerarLetrasBasicas: TLetrasBasicas;
 var
-  j, i: integer;
-  _chr: char;
-  _val: integer;
+  i: integer;
 begin
-   Result := '';
-   j := 0; //conta caracter para usar na chave
-   Chave := Chave.ToUpper;
-   for i := 0 to (Frase.Length - 1) do
-   begin
-     _chr := Frase[i];
-     _val := Ord(Frase[i]);
-     if not CharInSet(_chr, [#0, #32, #13]) then
-     begin
-			_chr := Chr(((_val mod 26) + Estado*Ord(Chave[j]) + 26) mod 26);
-			_chr := Chr(Ord(_chr)+65);
-			if (_val>25) then _chr = _chr.toLowerCase();
- 			j := (j + 1) mod Chave.length;
-     end;
-     Result := Result + _chr;
-   end;
+  for i := 0 to 25 do
+    Result[i] := Chr(65+i);
 end;
 
-decrypt(cypher) {
-		var text = '';
-		for(let i =0; i<cypher.length; i++) {
-			if(cypher[i] === " ") {
-				text += cypher[i];
-			} else {
-				text += String.fromCharCode(((((cypher.charCodeAt(i) - this.key.charCodeAt(i)) % 26)+26)%26)+65)
-			}
-		}
-		return text;
-}
-
-*)
-
-function Decrypt(Frase, Chave: string) : string;
+function GerarCifra: TMatriz;
 var
-  k: integer;
-  i: integer;
-  _Chr: char;
-  _NewChr: char;
+  i3, i2, i: integer;
+  LetrasBasicas: TLetrasBasicas;
 begin
-  Result := EmptyStr;
-  for i := 0 to Frase.Length - 1 do
-  begin
-    if (k = chave.Length) then
-      k := 0;
-    _Chr := Frase[i];
-    if  CharInSet(_chr, [#0, #32, #13]) then
-      Result := Result + _Chr
-    else
-      Result := Result + Chr((((Ord(_Chr) - Ord(Chave[i]) mod 26)+26)mod 26) + 65 );
-   //((((cypher.charCodeAt(i) - this.key.charCodeAt(i)) % 26)+26)%26)+65
+  LetrasBasicas := GerarLetrasBasicas;
 
+  i3 := 0;
+
+  for i := 0 to 25 do
+  begin
+    for i2 := 0 to 25 do
+    begin
+      if (i = 0) then
+      begin
+        Result[i2, i] := LetrasBasicas[i2];
+      end
+      else
+      begin
+        if ((i2 + i) > 25) then
+        begin
+          Result[i2, i] := LetrasBasicas[i3];
+          i3 := i3 + 1;
+        end
+        else
+          Result[i2, i] := LetrasBasicas[i2 + i];
+      end;
+    end;
+    i3 := 0;
+  end;
+end;
+
+function GetIndexFromArray(const aLetra: char; aLetrasBasicas: TLetrasBasicas): integer;
+var
+  i: integer;
+begin
+  Result := 0;
+  for i := Low(aLetrasBasicas) to High(aLetrasBasicas) do
+    if aLetrasBasicas[i] = aLetra then
+    begin
+      Result := i;
+      break;
+    end;
+
+end;
+
+function Decriptar(const aText, PalavraChave: string; Matriz: TMatriz): string;
+var
+  i, j, colunaID: integer;
+  letra: Char;
+  palavraChaveIndex, linhaID: integer;
+  LetrasBasicas: TLetrasBasicas;
+begin
+  LetrasBasicas := GerarLetrasBasicas;
+  palavraChaveIndex := 0;
+  colunaID := 0;
+  for i := 0 to Length(aText) do
+  begin
+    letra := aText[i];
+    if Ord(letra) in [65..122]  then //'A'..'z'
+    begin
+      if Ord(letra) in [97..122] then
+        letra := Chr(Ord(letra) - 32);  //maiusculas
+      if (palavraChaveIndex < PalavraChave.Length) then
+      begin
+        linhaID := GetIndexFromArray(PalavraChave[palavraChaveIndex], LetrasBasicas);
+        inc(palavraChaveIndex);
+      end
+      else
+      begin
+        palavraChaveIndex := 0;
+        linhaID := GetIndexFromArray(PalavraChave[palavraChaveIndex], LetrasBasicas);
+        inc(palavraChaveIndex);
+      end;
+
+      for j := 0 to 25 do
+      begin
+        if letra = Matriz[linhaId, j] then
+        begin
+          ColunaID := j;
+          Break;
+        end;
+      end;
+
+      Result := Result + Matriz[ colunaId, linhaId];
+
+    end
+    else
+      Result := Result + letra;
   end;
 
 end;
 
-
 begin
+  Matriz :=  GerarCifra;
   try
     _Str := TStringList.Create;
     try
       _Str.LoadFromFile('misterio.txt');
-      writeln(Output, Decrypt(_Str.Text, 'rodrigo'));
+      writeln(Output, Decriptar(_Str.Text, 'rodrigo', Matriz));
+
+
       readln;
     finally
       _Str.Free;
@@ -110,4 +135,5 @@ begin
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
   end;
+
 end.
